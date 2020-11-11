@@ -11,12 +11,12 @@ const subscriptionClient = new SubscriptionClient('ws://react.eogresources.com/g
 
 const client = createClient({
   url: 'https://react.eogresources.com/graphql',
-  exchanges: [
-    ...defaultExchanges,
-    subscriptionExchange({
-      forwardSubscription: operation => subscriptionClient.request(operation),
-    }),
-  ],
+  //   exchanges: [
+  //     ...defaultExchanges,
+  //     subscriptionExchange({
+  //       forwardSubscription: operation => subscriptionClient.request(operation),
+  //     }),
+  //   ],
 });
 
 const query = `
@@ -46,8 +46,13 @@ const MetricsList = (props: any) => {
   const { option } = props;
 
   const dispatch = useDispatch();
-  const currentTime = 1605103126215;
-  const before = 1605104126265;
+  //   const currentTime = new Date().valueOf();
+
+  // to do: add websocket connection
+
+  //   const before = 1605104126265;
+  const before = new Date().valueOf();
+  const currentTime = before - 30 * 60 * 1000;
 
   const input = {
     metricName: option.toString(),
@@ -75,7 +80,7 @@ const MetricsList = (props: any) => {
     dispatch(actions.metricsListDataReceived(getMeasurements));
   }, [dispatch, data, error]);
 
-  if (fetching) return <LinearProgress />;
+  //   if (fetching) return <LinearProgress />;
 
   const plotValues: any[] = [];
   metricslist.forEach(metricItem => {
